@@ -14,7 +14,6 @@ class CashMachineRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'quantity' => 'required|integer',
             'inputs' => 'required'
         ];
     }

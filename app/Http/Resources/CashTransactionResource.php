@@ -8,21 +8,26 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CashTransactionResource
 {
-    private CashTransactionData $cashTransactionData;
+    private array $cashTransactionData;
 
-    public function __construct(CashTransactionData $cashTransactionData)
+    public function __construct(array $cashTransactionData)
     {
         $this->cashTransactionData = $cashTransactionData;
     }
 
     public function toArray()
     {
+        $result = [];
 
-       return [
-           'type' => 'cash',
-           'quantity' => $this->cashTransactionData->getQuantity(),
-           'inputs' => $this->cashTransactionData->getInputs()
-       ];
+        /** @var CashTransactionData $items */
+        foreach ($this->cashTransactionData as $items) {
+            $result[] = [
+                'type' => 'cash',
+                'quantity' => $items->getQuantity(),
+                'banknote' => $items->getBanknote()
+            ];
+        }
+
+        return $result;
     }
-
 }

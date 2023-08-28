@@ -11,16 +11,24 @@ class CashTransactionFactory
     /**
      * @param CashMachineRequest $request
      *
-     * @return CashTransactionData
+     * @return array
      */
-    public static function create(CashMachineRequest $request): CashTransactionData
+    public static function create(CashMachineRequest $request): array
     {
         $data = $request->validationData();
 
-        return new CashTransactionData(
-            $data['quantity'],
-            $data['inputs']
-        );
+        $cashTransaction = [];
 
+        foreach ($data['inputs'] as $inputs) {
+            $total = $inputs['quantity'] * $inputs['banknote'];
+
+            $cashTransaction[] = new CashTransactionData(
+                $inputs['quantity'],
+                $inputs['banknote'],
+                $total
+            );
+        }
+
+        return $cashTransaction;
     }
 }

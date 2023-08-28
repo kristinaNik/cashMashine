@@ -2,18 +2,25 @@ window.addEventListener('load', function () {
     $("#add_transaction").on('click', function(e) {
         e.preventDefault();
 
-        var quantity = $("input[name=quantity]").val();
-        var input = $('#type_banknotes').find(":selected").val();
+        var addInputs = [];
+
+        $("input[name*=quantity]").each(function(index,elementQuantity) {
+            var quantity = elementQuantity.value;
+            var banknote = $('#id_' + index).val();
+
+            addInputs.push({
+                quantity: quantity,
+                banknote:  banknote
+            });
+        })
 
         $.ajax({
             type: 'POST',
             url: "api/transaction",
             data: {
-                quantity: quantity,
-                inputs: input
+                inputs: addInputs
             },
             success: function (data) {
-                console.log(data);
                 $('#success_message').append("Successfully added cash");
                 // $( location ).attr("href", "/");
             },

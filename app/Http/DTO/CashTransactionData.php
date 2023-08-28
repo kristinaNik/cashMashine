@@ -7,12 +7,15 @@ class CashTransactionData
 
     private int $quantity;
 
-    private string $inputs;
+    private string $banknote;
 
-    public function __construct(int $quantity, string $inputs)
+    private float $total;
+
+    public function __construct(int $quantity, string $banknote, float $total)
     {
         $this->quantity = $quantity;
-        $this->inputs = $inputs;
+        $this->banknote = $banknote;
+        $this->total = $total;
     }
 
     public function getQuantity(): int
@@ -20,8 +23,16 @@ class CashTransactionData
         return $this->quantity;
     }
 
-    public function getInputs(): string
+    public function getBanknote(): string
     {
-        return $this->inputs;
+        return $this->banknote;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotal(): float
+    {
+        return $this->total;
     }
 }
