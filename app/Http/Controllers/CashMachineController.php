@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Factories\CashTransactionFactory;
+use App\Http\Requests\CashMachineRequest;
+use App\Http\Resources\CashTransactionResource;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class CashMachineController extends Controller
@@ -25,9 +29,16 @@ class CashMachineController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CashMachineRequest $request)
     {
+       $cashTransaction = CashTransactionFactory::create($request);
+       $resource = new CashTransactionResource($cashTransaction);
 
+       $transaction = new Transaction();
+       $transaction->total_amount = $cashTransaction->getQuantity() * $cashTransaction->getInputs();
+       $transaction->inputs = json_encode($resource->toArray());
+
+       $transaction->save();
     }
 
     /**

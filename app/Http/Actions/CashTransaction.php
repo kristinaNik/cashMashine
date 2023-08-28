@@ -9,12 +9,6 @@ class CashTransaction implements Transaction
 
     private const LIMIT = 10000;
 
-    private string $inputs;
-
-    public function __construct(string $inputs)
-    {
-        $this->inputs = $inputs;
-    }
 
     public function validate()
     {
@@ -23,7 +17,7 @@ class CashTransaction implements Transaction
 
     public function amount()
     {
-        // TODO: Implement amount() method.
+
     }
 
     public function inputs()
