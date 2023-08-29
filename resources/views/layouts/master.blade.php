@@ -19,7 +19,9 @@
 
 <div class="container">
     <div class="row">
-    @yield('content')
+        @yield('home')
+        @yield('cash')
+        @yield('card')
     </div>
 </div>
 

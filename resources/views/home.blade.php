@@ -2,7 +2,7 @@
 @section('title')
    Cash Machine
 @endsection
-@section('content')
+@section('home')
 
     <div class="container">
 
@@ -30,6 +30,6 @@
         <br>
         <hr>
         <h3>Grand total: {{$sumTotal}}</h3>
-        <a href="{{route('add_transaction')}}"><input type="button"  class="btn btn-default" value="Go Home"></a>
+        <a href="{{route('add_transaction')}}"><input type="button"  class="btn btn-default" value="Add transaction"></a>
     </div>
 @endsection

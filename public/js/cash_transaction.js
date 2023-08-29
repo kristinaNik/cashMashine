@@ -1,9 +1,9 @@
 window.addEventListener('load', function () {
-    $("#add_transaction").on('click', function(e) {
+    $("#add_cash_transaction").on('click', function(e) {
         e.preventDefault();
 
         var addInputs = [];
-        var type_transaction = $('#type_transaction').val();
+        var type_transaction = $('#cash_type_transaction').val();
 
         $("input[name*=quantity]").each(function(index,elementQuantity) {
             var quantity = elementQuantity.value;
