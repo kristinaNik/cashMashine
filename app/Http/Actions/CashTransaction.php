@@ -2,22 +2,23 @@
 
 namespace App\Http\Actions;
 
-use App\Http\DTO\CashTransactionData;
+use App\Http\Factories\CashTransactionFactory;
 use App\Http\Interfaces\Transaction;
+use App\Http\Requests\CashMachineRequest;
 use \App\Models\Transaction as TransactionModel;
 
 class CashTransaction implements Transaction
 {
     private const LIMIT = 10000;
 
-    private array $cashTransactionData;
+    private CashMachineRequest $request;
 
-    /**
-     * @param array<CashTransactionData> $cashTransactionData
-     */
-    public function __construct(array $cashTransactionData)
+    private array $cashTransaction;
+
+    public function __construct(CashMachineRequest $request)
     {
-        $this->cashTransactionData = $cashTransactionData;
+        $this->request = $request;
+        $this->cashTransaction =  CashTransactionFactory::create($this->request);
     }
 
     /**
@@ -41,8 +42,8 @@ class CashTransaction implements Transaction
     {
         $total = 0.0;
 
-        foreach ($this->cashTransactionData as $data) {
-            $total += $data->getTotal();
+        foreach ($this->cashTransaction as $transaction) {
+            $total += $transaction->getTotal();
         }
 
         return $total;
@@ -55,11 +56,11 @@ class CashTransaction implements Transaction
     {
         $result = [];
 
-        foreach ($this->cashTransactionData as $items) {
+        foreach ($this->cashTransaction as $transaction) {
             $result[] = [
                 'type' => 'cash',
-                'quantity' => $items->getQuantity(),
-                'banknote' => $items->getBanknote()
+                'quantity' => $transaction->getQuantity(),
+                'banknote' => $transaction->getBanknote()
             ];
         }
 

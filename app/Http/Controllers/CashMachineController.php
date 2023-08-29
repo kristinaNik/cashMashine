@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use \App\Http\Interfaces\Transaction as TransactionInterface;
 use App\Http\Actions\CashTransaction;
 use App\Http\Factories\CashTransactionFactory;
+use App\Http\Factories\TransactionFactory;
+use App\Http\Interfaces\TransactionRequestInterface;
 use App\Http\Repositories\TransactionRepository;
 use App\Http\Requests\CashMachineRequest;
 use App\Http\Resources\CashTransactionResource;
 use App\Models\Transaction;
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
 class CashMachineController extends Controller
@@ -25,18 +30,8 @@ class CashMachineController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
-     */
-
-    /**
+     *
      * @param CashMachineRequest $request
      * @param TransactionRepository $transactionRepository
      * @return CashTransactionResource|\Illuminate\Http\JsonResponse
@@ -45,8 +40,7 @@ class CashMachineController extends Controller
         CashMachineRequest $request,
         TransactionRepository $transactionRepository
     ) {
-       $cashTransaction = CashTransactionFactory::create($request);
-       $cashTransactionAction = new CashTransaction($cashTransaction);
+        $cashTransactionAction =  TransactionFactory::make(CashTransaction::class, $request);
 
        if ($cashTransactionAction->validate()) {
            $transaction = $transactionRepository->store($cashTransactionAction);
@@ -55,37 +49,5 @@ class CashMachineController extends Controller
         }
 
         return new CashTransactionResource($transaction);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
