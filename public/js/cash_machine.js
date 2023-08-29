@@ -3,6 +3,7 @@ window.addEventListener('load', function () {
         e.preventDefault();
 
         var addInputs = [];
+        var type_transaction = $('#type_transaction').val();
 
         $("input[name*=quantity]").each(function(index,elementQuantity) {
             var quantity = elementQuantity.value;
@@ -18,6 +19,7 @@ window.addEventListener('load', function () {
             type: 'POST',
             url: "api/transaction",
             data: {
+                type: type_transaction,
                 inputs: addInputs
             },
             success: function (data) {

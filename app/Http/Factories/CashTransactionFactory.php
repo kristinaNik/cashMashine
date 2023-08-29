@@ -25,6 +25,7 @@ class CashTransactionFactory
             $cashTransaction[] = new CashTransactionData(
                 $inputs['quantity'],
                 $inputs['banknote'],
+                $data['type'],
                 $total
             );
         }

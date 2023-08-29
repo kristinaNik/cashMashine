@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions;
 
+use App\Http\DTO\CashTransactionData;
 use App\Http\Factories\CashTransactionFactory;
 use App\Http\Interfaces\Transaction;
 use App\Http\Requests\CashMachineRequest;
@@ -56,9 +57,10 @@ class CashTransaction implements Transaction
     {
         $result = [];
 
+        /** @var CashTransactionData $transaction */
         foreach ($this->cashTransaction as $transaction) {
             $result[] = [
-                'type' => 'cash',
+                'type' =>  $transaction->getType(),
                 'quantity' => $transaction->getQuantity(),
                 'banknote' => $transaction->getBanknote()
             ];

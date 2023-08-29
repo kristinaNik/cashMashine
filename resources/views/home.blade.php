@@ -28,5 +28,8 @@
 
             </tbody>
         </table>
+        <br>
+        <hr>
+        <h3>Grand total: {{$sumTotal}}</h3>
     </div>
 @endsection

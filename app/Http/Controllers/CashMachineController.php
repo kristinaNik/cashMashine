@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use \App\Http\Interfaces\Transaction as TransactionInterface;
+use App\Http\Actions\BankTransaction;
+use App\Http\Actions\CardTransaction;
 use App\Http\Actions\CashTransaction;
-use App\Http\Factories\CashTransactionFactory;
 use App\Http\Factories\TransactionFactory;
-use App\Http\Interfaces\TransactionRequestInterface;
 use App\Http\Repositories\TransactionRepository;
 use App\Http\Requests\CashMachineRequest;
 use App\Http\Resources\CashTransactionResource;
 use App\Models\Transaction;
-use App\Models\Transaction as TransactionModel;
-use Illuminate\Contracts\Validation\ValidatesWhenResolved;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
 class CashMachineController extends Controller
 {
@@ -26,8 +21,12 @@ class CashMachineController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
+        $sumTotal = Transaction::query()->sum('total_amount');
 
-        return view('home')->with('transactions', $transactions);
+        return view('home')->with([
+            'transactions' => $transactions,
+            'sumTotal' => $sumTotal
+        ]);
     }
 
     /**
@@ -41,7 +40,15 @@ class CashMachineController extends Controller
         CashMachineRequest $request,
         TransactionRepository $transactionRepository
     ) {
-        $transactionAction =  TransactionFactory::make(CashTransaction::class, $request);
+        if ($request->type === 'cash') {
+            $transactionAction = TransactionFactory::make(CashTransaction::class, $request);
+        } else if ($request->type === 'bank') {
+            $transactionAction = TransactionFactory::make(BankTransaction::class, $request);
+        }  else if ($request->type === 'card') {
+            $transactionAction = TransactionFactory::make(CardTransaction::class, $request);
+        } else {
+            return response()->json(['message' => 'No such type'], 422);
+        }
 
        if ($transactionAction->validate()) {
            $transaction = $transactionRepository->store($transactionAction);

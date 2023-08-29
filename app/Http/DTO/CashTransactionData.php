@@ -9,12 +9,19 @@ class CashTransactionData
 
     private string $banknote;
 
+    private string $type;
+
     private float $total;
 
-    public function __construct(int $quantity, string $banknote, float $total)
-    {
+    public function __construct(
+        int $quantity,
+        string $banknote,
+        string $type,
+        float $total
+    ) {
         $this->quantity = $quantity;
         $this->banknote = $banknote;
+        $this->type = $type;
         $this->total = $total;
     }
 
@@ -26,6 +33,14 @@ class CashTransactionData
     public function getBanknote(): string
     {
         return $this->banknote;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     /**
