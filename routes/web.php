@@ -17,6 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('cash_machine');
 });
-
+Route::post('/', [CashMachineController::class, 'store'])->name('add_transaction');
 Route::get('/home', [CashMachineController::class, 'index'])->name('home');
-Route::get('/add', 'WebDashboardController@addForm')->name('add-configuration');

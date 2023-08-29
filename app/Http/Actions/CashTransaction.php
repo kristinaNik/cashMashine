@@ -60,7 +60,6 @@ class CashTransaction implements Transaction
         /** @var CashTransactionData $transaction */
         foreach ($this->cashTransaction as $transaction) {
             $result[] = [
-                'type' =>  $transaction->getType(),
                 'quantity' => $transaction->getQuantity(),
                 'banknote' => $transaction->getBanknote()
             ];

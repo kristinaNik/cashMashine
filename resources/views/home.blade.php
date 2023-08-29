@@ -19,17 +19,17 @@
             @foreach($transactions as $transaction)
             <tr>
 
-                    <td>{{$transaction->id}}</td>
-                    <td>{{$transaction->total_amount}}</td>
-                    <td>{{$transaction->inputs}}</td>
+                <td>{{$transaction->id}}</td>
+                <td>{{$transaction->total_amount}}</td>
+                <td>{{$transaction->inputs}}</td>
 
             </tr>
             @endforeach
-
             </tbody>
         </table>
         <br>
         <hr>
         <h3>Grand total: {{$sumTotal}}</h3>
+        <a href="{{route('add_transaction')}}"><input type="button"  class="btn btn-default" value="Go Home"></a>
     </div>
 @endsection

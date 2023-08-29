@@ -25,7 +25,7 @@ class CashMachineController extends Controller
 
         return view('home')->with([
             'transactions' => $transactions,
-            'sumTotal' => $sumTotal
+            'sumTotal' => $sumTotal,
         ]);
     }
 
