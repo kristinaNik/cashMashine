@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Actions\CardTransaction;
 use App\Http\Actions\CashTransaction;
 use App\Http\Factories\CashTransactionFactory;
+use App\Http\Repositories\TransactionRepository;
 use App\Http\Requests\CashMachineRequest;
 use App\Http\Resources\CashTransactionResource;
-use App\Http\Services\CashTransactionService;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,9 @@ class CashMachineController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = Transaction::all();
+
+        return view('home')->with('transactions', $transactions);
     }
 
     /**
@@ -32,17 +35,26 @@ class CashMachineController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CashMachineRequest $request)
-    {
+
+    /**
+     * @param CashMachineRequest $request
+     * @param TransactionRepository $transactionRepository
+     * @return CashTransactionResource|\Illuminate\Http\JsonResponse
+     */
+    public function store(
+        CashMachineRequest $request,
+        TransactionRepository $transactionRepository
+    ) {
        $cashTransaction = CashTransactionFactory::create($request);
-       $resource = new CashTransactionResource($cashTransaction);
-       $cashTransactionService = new CashTransactionService();
+       $cashTransactionAction = new CashTransaction($cashTransaction);
 
-       $transaction = new Transaction();
-       $transaction->total_amount = $cashTransactionService->getGrandTotal($cashTransaction);
-       $transaction->inputs = json_encode($resource->toArray());
+       if ($cashTransactionAction->validate()) {
+           $transaction = $transactionRepository->store($cashTransactionAction);
+       } else {
+            return response()->json(['message' => 'Limit reached'], 422);
+        }
 
-       $transaction->save();
+        return new CashTransactionResource($transaction);
     }
 
     /**

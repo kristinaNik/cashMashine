@@ -21,7 +21,8 @@ window.addEventListener('load', function () {
                 inputs: addInputs
             },
             success: function (data) {
-                $('#success_message').append("Successfully added cash");
+                window.location.href = '/home';
+              //  $('#success_message').append("Successfully added cash");
                 // $( location ).attr("href", "/");
             },
             error: function (data, err) {
