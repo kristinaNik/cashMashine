@@ -13,6 +13,7 @@ use App\Http\Repositories\TransactionRepository;
 use App\Http\Requests\CashMachineRequest;
 use App\Http\Resources\CashTransactionResource;
 use App\Models\Transaction;
+use App\Models\Transaction as TransactionModel;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
@@ -40,10 +41,10 @@ class CashMachineController extends Controller
         CashMachineRequest $request,
         TransactionRepository $transactionRepository
     ) {
-        $action =  TransactionFactory::make(CashTransaction::class, $request);
+        $transactionAction =  TransactionFactory::make(CashTransaction::class, $request);
 
-       if ($action->validate()) {
-           $transaction = $transactionRepository->store($action);
+       if ($transactionAction->validate()) {
+           $transaction = $transactionRepository->store($transactionAction);
        } else {
             return response()->json(['message' => 'Limit reached'], 422);
         }
