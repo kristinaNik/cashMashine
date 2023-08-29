@@ -40,10 +40,10 @@ class CashMachineController extends Controller
         CashMachineRequest $request,
         TransactionRepository $transactionRepository
     ) {
-        $cashTransactionAction =  TransactionFactory::make(CashTransaction::class, $request);
+        $action =  TransactionFactory::make(CashTransaction::class, $request);
 
-       if ($cashTransactionAction->validate()) {
-           $transaction = $transactionRepository->store($cashTransactionAction);
+       if ($action->validate()) {
+           $transaction = $transactionRepository->store($action);
        } else {
             return response()->json(['message' => 'Limit reached'], 422);
         }
