@@ -40,6 +40,7 @@ class CashMachineController extends Controller
         CashMachineRequest $request,
         TransactionRepository $transactionRepository
     ) {
+       // dd($request);
         if ($request->type === 'cash') {
             $transactionAction = TransactionFactory::make(CashTransaction::class, $request);
         } else if ($request->type === 'bank') {
