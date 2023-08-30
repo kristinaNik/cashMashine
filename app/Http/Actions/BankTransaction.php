@@ -5,13 +5,11 @@ namespace App\Http\Actions;
 use App\Http\DTO\BankTransactionData;
 use App\Http\Factories\BankTransferFactory;
 use App\Http\Interfaces\Transaction;
-use App\Models\Transaction as TransactionModel;
 use App\Http\Requests\CashMachineRequest;
+use App\Models\Transaction as TransactionModel;
 
 class BankTransaction implements Transaction
 {
-    private const LIMIT = 10000;
-
     private BankTransactionData $cardTransaction;
 
     public function __construct(CashMachineRequest $request)
@@ -21,12 +19,6 @@ class BankTransaction implements Transaction
 
     public function validate()
     {
-        $sumTotal = TransactionModel::query()->sum('total_amount');
-
-        if ($this->amount() > self::LIMIT || $sumTotal > self::LIMIT) {
-            return false;
-        }
-
         return true;
     }
 

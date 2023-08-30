@@ -29,7 +29,7 @@ class CashTransaction implements Transaction
     {
         $sumTotal = TransactionModel::query()->sum('total_amount');
 
-        if ($this->amount() > self::LIMIT || $sumTotal > self::LIMIT) {
+        if ($this->amount() >= self::LIMIT || $sumTotal >= self::LIMIT) {
             return false;
         }
 

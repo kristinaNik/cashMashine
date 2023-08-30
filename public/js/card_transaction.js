@@ -3,10 +3,9 @@ window.addEventListener('load', function () {
         e.preventDefault();
 
         var type_transaction = $('#card_type_transaction').val();
-        var amount = $("input[name=amount]").val();
+        var amount = $("#card_amount").val();
         var card_number =  $("input[name=card_number]").val();
         var exp_date = $("input[name=exp_date]").val();
-       alert(exp_date);
         var card_holder =  $("input[name=card_holder]").val();
         var cvv =  $("input[name=cvv]").val();
 
@@ -29,7 +28,7 @@ window.addEventListener('load', function () {
                 window.location.href = '/home';
             },
             error: function (data, err) {
-                $('#error_message').append(data.responseText);
+                $('#card_error_message').append(data.responseText);
             },
         });
     })

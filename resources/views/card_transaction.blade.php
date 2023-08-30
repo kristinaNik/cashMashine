@@ -6,7 +6,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label> Add amount
-                            <input type="number" name="amount" class="form-control">
+                            <input type="text" id="card_amount" name="amount" class="form-control">
                         </label>
                     </div>
                     <div class="form-group">
@@ -33,7 +33,7 @@
             </div>
             <input type="hidden" id="card_type_transaction" value="card">
             <button type="submit" id="add_card_transaction" class="btn btn-primary">Submit</button>
-            <p class="text-error" id="error_message"></p>
+            <p class="text-error" id="card_error_message"></p>
         </form>
 
       <br>

@@ -21,12 +21,6 @@ class CardTransaction implements Transaction
 
     public function validate()
     {
-        $sumTotal = TransactionModel::query()->sum('total_amount');
-
-        if ($this->amount() > self::LIMIT || $sumTotal > self::LIMIT) {
-            return false;
-        }
-
         return true;
     }
 

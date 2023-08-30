@@ -15,6 +15,7 @@ use App\Models\Transaction;
 
 class CashMachineController extends Controller
 {
+    private const GRAND_LIMIT = 20000;
     /**
      * Display a listing of the resource.
      */
@@ -40,6 +41,14 @@ class CashMachineController extends Controller
         CashMachineRequest $request,
         TransactionRepository $transactionRepository
     ) {
+        $sumTotal = Transaction::query()->sum('total_amount');
+
+        if ($sumTotal >= self::GRAND_LIMIT && $sumTotal <= self::GRAND_LIMIT) {
+            return response()->json([
+                'message' => sprintf('%s %d','You have reached the overall limit of ', self::GRAND_LIMIT)
+            ], 422);
+        }
+
         if ($request->type === 'cash') {
             $transactionAction = TransactionFactory::make(CashTransaction::class, $request);
         } else if ($request->type === 'bank') {
@@ -53,7 +62,7 @@ class CashMachineController extends Controller
        if ($transactionAction->validate()) {
            $transaction = $transactionRepository->store($transactionAction);
        } else {
-            return response()->json(['message' => 'Limit reached'], 422);
+            return response()->json(['message' => 'Transaction limit reached'], 422);
         }
 
         return new CashTransactionResource($transaction);

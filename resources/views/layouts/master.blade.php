@@ -22,6 +22,7 @@
         @yield('home')
         @yield('cash')
         @yield('card')
+        @yield('bank')
     </div>
 </div>
 
