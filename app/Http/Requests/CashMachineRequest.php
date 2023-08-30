@@ -29,7 +29,9 @@ class CashMachineRequest extends FormRequest
             'inputs' => 'required',
             'inputs.card_number' => 'size:16|starts_with:4',
             'inputs.expiration_date' => 'date_format:m/Y|after:today +2 months',
-            'inputs.cvv' => 'size:3'
+            'inputs.cvv' => 'size:3',
+            'inputs.account_number' => 'size:6|alpha_dash',
+            'inputs.transfer_date' => 'date_format:Y-m-d|before:tomorrow'
         ];
     }
 }

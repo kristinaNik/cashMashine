@@ -84,7 +84,6 @@
             </div>
             <input type="hidden" id="cash_type_transaction" value="cash">
             <button type="submit" id="add_cash_transaction" class="btn btn-primary">Submit</button>
-            <a href="{{route('home')}}"><input type="button"  class="btn btn-default" value="Go Home"></a>
         </form>
         <br/>
     </div>
