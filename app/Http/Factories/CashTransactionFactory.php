@@ -7,12 +7,6 @@ use App\Http\Requests\CashMachineRequest;
 
 class CashTransactionFactory
 {
-
-    /**
-     * @param CashMachineRequest $request
-     *
-     * @return array
-     */
     public static function create(CashMachineRequest $request): array
     {
         $data = $request->validationData();

@@ -24,11 +24,9 @@ window.addEventListener('load', function () {
             },
             success: function (data) {
                 window.location.href = '/home';
-              //  $('#success_message').append("Successfully added cash");
-                // $( location ).attr("href", "/");
             },
             error: function (data, err) {
-                alert("error in adding cash.");
+                $('#cash_error_message').append(data.responseText);
             },
         });
     })

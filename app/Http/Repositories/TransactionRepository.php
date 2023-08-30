@@ -5,7 +5,7 @@ namespace App\Http\Repositories;
 use App\Models\Transaction;
 use \App\Http\Interfaces\Transaction as TransactionInterface;
 
-class TransactionRepository
+class TransactionRepository implements \App\Http\Interfaces\TransactionRepository
 {
     /**
      * @param TransactionInterface $transactionAction

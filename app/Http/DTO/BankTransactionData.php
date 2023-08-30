@@ -4,20 +4,11 @@ namespace App\Http\DTO;
 
 class BankTransactionData
 {
-
     private string $transferDate;
     private string $customerName;
-
     private string $accountNumber;
-
     private float $amount;
 
-    /**
-     * @param string $transferDate
-     * @param string $customerName
-     * @param string $accountNumber
-     * @param float $amount
-     */
     public function __construct(string $transferDate, string $customerName, string $accountNumber, float $amount)
     {
         $this->transferDate = $transferDate;

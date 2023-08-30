@@ -84,6 +84,7 @@
             </div>
             <input type="hidden" id="cash_type_transaction" value="cash">
             <button type="submit" id="add_cash_transaction" class="btn btn-primary">Submit</button>
+            <p class="text-error" id="cash_error_message"></p>
         </form>
         <br/>
     </div>

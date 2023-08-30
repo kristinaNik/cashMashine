@@ -6,9 +6,7 @@ class CashTransactionData
 {
 
     private int $quantity;
-
     private string $banknote;
-
     private float $total;
 
     public function __construct(
@@ -31,9 +29,6 @@ class CashTransactionData
         return $this->banknote;
     }
 
-    /**
-     * @return float
-     */
     public function getTotal(): float
     {
         return $this->total;

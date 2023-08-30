@@ -5,21 +5,11 @@ namespace App\Http\DTO;
 class CardTransactionData
 {
     private string $cardNumber;
-
     private string $expirationDate;
-
     private string $cardHolder;
-
     private int $cvv;
-
     private float $amount;
 
-    /**
-     * @param string $cardNumber
-     * @param string $expirationDate
-     * @param string $cardHolder
-     * @param int $cvv
-     */
     public function __construct(
         string $cardNumber,
         string $expirationDate,
@@ -54,9 +44,6 @@ class CardTransactionData
         return $this->cvv;
     }
 
-    /**
-     * @return float
-     */
     public function getAmount(): float
     {
         return $this->amount;

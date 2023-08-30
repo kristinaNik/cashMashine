@@ -7,13 +7,6 @@ use App\Http\Requests\CashMachineRequest;
 
 class TransactionFactory
 {
-
-    /**
-     * @param string $type
-     * @param CashMachineRequest $request
-     *
-     * @return Transaction
-     */
     public static function make(
         string $type,
         CashMachineRequest $request

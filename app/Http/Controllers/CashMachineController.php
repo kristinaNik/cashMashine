@@ -16,6 +16,7 @@ use App\Models\Transaction;
 class CashMachineController extends Controller
 {
     private const GRAND_LIMIT = 20000;
+
     /**
      * Display a listing of the resource.
      */

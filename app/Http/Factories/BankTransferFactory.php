@@ -7,7 +7,6 @@ use App\Http\Requests\CashMachineRequest;
 
 class BankTransferFactory
 {
-
     public static function create(CashMachineRequest $request): BankTransactionData
     {
         $data = $request->validationData()['inputs'];
